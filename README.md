@@ -1,6 +1,6 @@
-# Ekercode-mobile
+# ekercode-exam
 
-Web app
+以类似闯关的形式完成做题功能。
 
 ## 准备
 
