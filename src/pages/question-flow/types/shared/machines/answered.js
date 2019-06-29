@@ -13,6 +13,7 @@ export const State = keyMirror({
 
 export const Action = keyMirror({
   ANSWER_FINISH: null,
+  CHECK_ANSWER: null,
 });
 
 export const Guard = keyMirror({
@@ -28,6 +29,7 @@ export function createMachineStates() {
     initial: State.ANSWERED__PENDING,
     states: {
       [State.ANSWERED__PENDING]: {
+        entry: [Action.CHECK_ANSWER],
         on: {
           '': [
             { target: State.ANSWERED__RIGHT, cond: Guard.isAnsweredRight },
@@ -36,20 +38,20 @@ export function createMachineStates() {
         },
       },
       [State.ANSWERED__RIGHT]: {
-        entry: [actions.log(() => {}, `Entered ${State.ANSWERED__RIGHT}`)],
+        entry: [actions.log((...a) => a, `Entered ${State.ANSWERED__RIGHT}`)],
         after: {
           3000: State.ANSWERED__FINISH,
         },
       },
       [State.ANSWERED__WRONG]: {
-        entry: [actions.log(() => {}, `Entered ${State.ANSWERED__WRONG}`)],
+        entry: [actions.log((...a) => a, `Entered ${State.ANSWERED__WRONG}`)],
         after: {
           3000: State.ANSWERED__FINISH,
         },
       },
       [State.ANSWERED__FINISH]: {
         entry: [
-          actions.log(() => {}, `Entered ${State.ANSWERED__FINISH}`),
+          actions.log((...a) => a, `Entered ${State.ANSWERED__FINISH}`),
           Action.ANSWER_FINISH,
         ],
         type: 'final',

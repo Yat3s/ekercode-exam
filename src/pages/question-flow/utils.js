@@ -1,4 +1,12 @@
+import { QuestionType } from './constants';
+
 export function extractImages(data) {
-  const images = [...data.question.images, ...data.choices.map(c => c.image)];
-  return images;
+  switch (data.type) {
+    case QuestionType.SINGLE_CHOICE:
+      return [...data.question.images, ...data.choices.map(c => c.image)];
+    case QuestionType.ESSAY:
+      return [...data.question.images];
+    default:
+      return [];
+  }
 }
