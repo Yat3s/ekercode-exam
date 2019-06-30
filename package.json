@@ -17,6 +17,8 @@
     "fastclick": "^1.0.6",
     "html-webpack-tags-plugin": "^2.0.12",
     "keymirror": "^0.1.1",
+    "monaco-editor": "^0.17.1",
+    "monaco-editor-webpack-plugin": "^1.7.0",
     "normalize.css": "^8.0.1",
     "poi": "^12.6.10",
     "popmotion": "^8.6.10",
