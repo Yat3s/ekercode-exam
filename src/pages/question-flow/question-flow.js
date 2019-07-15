@@ -6,11 +6,13 @@ import Preloader from '@/components/preloader';
 import Button from '@/components/button';
 import { Slot, SlotsProvider } from '@/components/slot';
 
-import SingleChoice from './types/single-choice';
 import { extractImages } from './utils';
 import RightAnswerMask from './components/answered-result-mask';
 import { QuestionType } from './constants';
-import QuestionEssay from './types/essay';
+
+const SingleChoice = React.lazy(() => import('./types/single-choice'));
+const QuestionEssay = React.lazy(() => import('./types/essay'));
+const Programing = React.lazy(() => import('./types/programming'));
 
 const Root = styled.div`
   position: absolute;
@@ -78,9 +80,27 @@ const essayData = {
   },
   referenceAnswer: 'Right Answer',
 };
-const images = [singleChoiceData, essayData].reduce((acc, data) => {
-  return [...acc, ...extractImages(data)];
-}, []);
+const programingData = {
+  type: QuestionType.PROGRAMMING,
+  question: {
+    text: `现在需要告诉你一个关于input的秘密,input会为所有的输入都穿上一件衣服,那就是引号''变成字符串的格式,(python中,单引号和双引号在字符串中没有区别), 比如输入数字10,接收到的会是'10',这就是为什么直接执行＋1运算报错的原因了. 训练师,现在我给你一件装备,int.可以将仅包含整数的字符串转为整数. 比如 int('10') = 10 现在,快来完成下面的题目吧.请打印一个数字,该数字为输入的十倍`,
+    input: `一个数字`,
+    output: `一个数字`,
+  },
+  referenceAnswer: `a = input()
+b = a * 10
+print(b)`,
+  sample: {
+    input: '3',
+    output: '9',
+  },
+};
+
+const images =
+  [] ||
+  [singleChoiceData, essayData].reduce((acc, data) => {
+    return [...acc, ...extractImages(data)];
+  }, []);
 
 export default function QuestionFlow() {
   const [{ answeredMaskVisible, answeredRight }, setFlowState] = React.useState(
@@ -127,7 +147,9 @@ export default function QuestionFlow() {
                 {...singleChoiceData}
                 {...flowHandlers}
               /> */}
-              <QuestionEssay {...essayData} {...flowHandlers} />
+              {/* <QuestionEssay {...essayData} {...flowHandlers} /> */}
+
+              <Programing {...programingData} {...flowHandlers} />
             </AnswerArea>
 
             <ActionArea>

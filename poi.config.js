@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const HtmlWebpackTagsPlugin = require('html-webpack-tags-plugin');
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 module.exports = options => {
   return {
@@ -36,6 +37,55 @@ module.exports = options => {
                 variableName: 'AV',
               },
             },
+          ],
+        },
+      ]);
+
+      config.plugin('monaco-editor').use(MonacoWebpackPlugin, [
+        {
+          languages: ['python'],
+          features: [
+            // 'accessibilityHelp',
+            'bracketMatching',
+            'caretOperations',
+            'clipboard',
+            // 'codeAction',
+            'codelens',
+            'colorDetector',
+            'comment',
+            'contextmenu',
+            'coreCommands',
+            'cursorUndo',
+            'dnd',
+            'find',
+            'folding',
+            'fontZoom',
+            'format',
+            'goToDefinitionCommands',
+            'goToDefinitionMouse',
+            'gotoError',
+            'gotoLine',
+            'hover',
+            'inPlaceReplace',
+            'inspectTokens',
+            'iPadShowKeyboard',
+            'linesOperations',
+            'links',
+            'multicursor',
+            'parameterHints',
+            'quickCommand',
+            'quickOutline',
+            'referenceSearch',
+            'rename',
+            'smartSelect',
+            // 'snippets',
+            'suggest',
+            'toggleHighContrast',
+            'toggleTabFocusMode',
+            'transpose',
+            'wordHighlighter',
+            'wordOperations',
+            'wordPartOperations',
           ],
         },
       ]);
